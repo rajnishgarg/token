@@ -28,9 +28,9 @@ def call_http_post(REQUEST_INFO):
 	#Make a HTTP POST request
 	try:
 		r = requests.post(REQUEST_INFO.url, data=REQUEST_INFO.payload, headers= REQUEST_INFO.headers)
-		if r.status_code != 200:
+		if r.status_code != 200 or r.status_code != 201:
 			raise Exception("Error HTTP Post Failed, status code: {}, payload: {} , url: {}".format(r.status_code, REQUEST_INFO.payload, REQUEST_INFO.url) ) 
-		res = r
+		res = r.text
 		
 	except Exception, e:
 		# logging.info(e)
