@@ -1,39 +1,38 @@
 # main.py
 
 from app import app
-from forms import MusicSearchForm
+from forms import ProductSelectForm
 from flask import flash, render_template, request, redirect
+import json
+from product import run_ims 
 
 # init_db()
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    search = MusicSearchForm(request.form)
+    form = ProductSelectForm(request.form)
     if request.method == 'POST':
-        return search_results(search)
+        return search_results(form)
 
-    return render_template('index.html', form=search)
+    return render_template('index.html', form=form)
 
 
 @app.route('/results')
-def search_results(search):
-    results = []
-    search_string = search.data['search']
-
-    # if search.data['search'] == '':
-    #     qry = db_session.query(Album)
-    #     results = qry.all()
-
+def search_results(form):
+    results = {}
+    results["Found"] = run_ims(form)
+    
     if not results:
         flash('No results found!')
         return redirect('/')
     else:
         # display results
-        return render_template('results.html', table=table)
+        return render_template('results.html' , results=json.dumps(results))
 
 if __name__ == '__main__':
     import os
     if 'WINGDB_ACTIVE' in os.environ:
         app.debug = False
-    app.run(port=5002)
+    app.debug = True
+    app.run(port=5003)
