@@ -15,8 +15,12 @@ Open Questions:
  2. 
 """
 
-# Global dictionary of exceptions
-responses = []
+class my_responses(object):
+
+	def __init__(self):
+		self.responses = []
+
+responses = my_responses().responses
 
 def call_http_post(REQUEST_INFO):
 
@@ -84,7 +88,3 @@ def run_ims(form):
 	r = __run_token(FIRST_LEVEL_TOKEN, PRODUCT_NAME, encrypt_account_id, account_number, vpan)
 
 	return responses
-
-
-
-

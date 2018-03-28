@@ -98,14 +98,14 @@ class VPAN_REQUEST(object):
 
 	def __init__(self, product_name, encrypted_account_number, account_number ):
 
-		payload = {
+		self.payload = {
 		  "value_to_tokenize" : "???", #TODO:
 		  "product_name" : product_name,
 		  "wallet_id" : encrypted_account_number,
 		  "additional_attributes" : [ ]
 		}
 
-		headers = {
+		self.headers = {
 			'Content-Type': 'application/json',
 
 			'x-paypal-security-context': {
@@ -132,7 +132,7 @@ class VPAN_REQUEST(object):
 			}
 		}
 
-		url = 'https://msmaster.qa.paypal.com:15248/v1/issuance/tokens'
+		self.url = 'https://msmaster.qa.paypal.com:15248/v1/issuance/tokens'
 
 
 class TPAN_REQUEST(object):
@@ -205,7 +205,8 @@ MAPPING_DICT = {
    		"type": "TPAN", 
    		"country": "US", 
    		"depedency":  { 
-   			  "NTT" :  "FACEBOOKFIVAULT_US_NONTRANSACTABLETOKEN"
+   			  "NTT" :  "FACEBOOKFIVAULT_US_NONTRANSACTABLETOKEN",
+   			  "VPAN" :  "FACEBOOKFIVAULT_VS_NONTRANSACTABLETOKEN"
    		}
    		
    	},

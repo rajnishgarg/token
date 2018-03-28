@@ -21,14 +21,15 @@ def index():
 @app.route('/results')
 def search_results(form):
     results = {}
-    results["Found"] = run_ims(form)
-    
-    if not results:
+    output = run_ims(form)
+
+
+    if not output:
         flash('No results found!')
         return redirect('/')
     else:
         # display results
-        return render_template('results.html' , results=json.dumps(results))
+        return render_template('results.html' , results = output ) #results=json.dumps(results))
 
 if __name__ == '__main__':
     import os
